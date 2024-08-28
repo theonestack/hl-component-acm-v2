@@ -1,5 +1,7 @@
 CloudFormation do
 
+  export = external_parameters.fetch(:export_name, external_parameters[:component_name])
+
   cert_tags = []
   cert_tags << { Key: "Name", Value: Ref('AWS::StackName') }
   cert_tags << { Key: "Environment", Value: Ref("EnvironmentName") }
@@ -30,7 +32,7 @@ CloudFormation do
 
   Output(:CertificateArn) {
     Value Ref(:Certificate)
-    Export(FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-cert-arn"))
+    Export(FnSub("${EnvironmentName}-#{export}-cert-arn"))
   }
 
 end
