@@ -9,7 +9,7 @@ CloudFormation do
 
   tags = external_parameters.fetch(:tags, {})
   tags.each do |key, value|
-    cert_tags << { Key: key, Value: value }
+    cert_tags << { Key: FnSub(key), Value: FnSub(value)}
   end
 
   Condition(:AlternativeNamesEmpty, FnEquals(Ref(:AlternativeNames), ''))
