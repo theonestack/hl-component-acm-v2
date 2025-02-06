@@ -32,7 +32,7 @@ CloudFormation do
 
   Output(:CertificateArn) {
     Value Ref(:Certificate)
-    Export(FnSub("${EnvironmentName}-#{export}-cert-arn"))
+    Export FnJoin('-', [Ref('EnvironmentName'), export, 'cert', 'arn'])
   }
 
 end
